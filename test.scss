@@ -1,0 +1,92 @@
+// reset.scss을 사용하겠다
+@use 'reset';
+// css로 변환 필요, html에 넣을 땐 css 파일 넣음, .map은 크롬 개발자 도구 디버깅용
+// 사칙 연산은 같은 단위끼리
+$main-color : #2a4cb2;
+$sub-color : #eeeeee;
+$font-size : 16px;
+
+// 임시 클래스 특징 : 단독으로 컴파일 되지 않음
+// @extend : 클래스 복사
+%btn {
+    width : 100px;
+    height : 100px;
+    padding : 20px;
+}
+
+.btn-green {
+    @extend %btn;
+    color: green;
+}
+
+%div {
+    width : 200px;
+    height : 200px;
+    padding : 20px;
+}
+
+.div-green {
+    @extend %div;
+    background : green;
+}
+
+.div-red {
+    @extend %div;
+    background : red;
+}
+
+.div-blue {
+    @extend %div;
+    background : blue;
+}
+
+// 함수처럼 사용
+// parameter, argument 사용
+// key도 변수로 넣을 수 있음'
+@mixin mixin-test($font-size, $letter-spacing, $style-name) {
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    #{$style-name}: 1px solid black;
+}
+
+h2 {
+    @include mixin-test(30px, 1px, border);
+    color : reset.$main-color;
+}
+
+h3 {
+    @include mixin-test(20px, -1px, border)
+}
+
+h4 {
+    @include mixin-test(30px, 1px, border)
+}
+
+// nesting 문법, 두 개 이상 중첩 X
+.main-bg {
+    h4 {
+        font-size : 16px;
+    }
+
+    button {
+        color : red;
+    }
+}   
+
+.main-bg h4 {
+    font-size : 16px;
+}
+
+.main-bg h4 {
+    color : red;
+}
+
+.background {
+    background-color : $main-color;
+    font-size : $font-size - 2px;
+}
+
+.box {
+    color : $sub-color;
+    font-size : $font-size + 2px;
+}
